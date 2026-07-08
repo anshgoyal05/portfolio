@@ -8,7 +8,7 @@
 
 Welcome to the repository of my official developer portfolio website. Built with cutting-edge web technologies, high-performance smooth animations, and a responsive, modern dark-mode aesthetic.
 
-🌐 **Live Website:** [goyalansh.in](https://goyalansh.in)
+🌐 **Live Website:** [anshgoyal.live](https://anshgoyal.live)
 
 ---
 
