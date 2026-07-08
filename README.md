@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌌 Ansh Goyal — Portfolio
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-16.2-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.0-blue?style=flat-square&logo=react)](https://react.dev/)
+[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38bdf8?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![GSAP](https://img.shields.io/badge/GSAP-3.15-green?style=flat-square&logo=greensock)](https://greensock.com/gsap/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.4-black?style=flat-square&logo=framer-motion)](https://www.framer.com/motion/)
 
-First, run the development server:
+Welcome to the repository of my official developer portfolio website. Built with cutting-edge web technologies, high-performance smooth animations, and a responsive, modern dark-mode aesthetic.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+🌐 **Live Website:** [goyalansh.in](https://goyalansh.in)
+
+---
+
+## ✨ Features
+
+*   **⚡ Premium Performance:** Bootstrapped with Next.js 16 (App Router) and React 19 for server-side rendering, instant page transitions, and image optimizations.
+*   **🌊 Fluid Scrolling & Animations:** Integrates **GSAP**, **Framer Motion**, and **Lenis** for smooth kinetic scrolling, fade-reveals, and micro-interactions.
+*   **🎨 Ambient & Immersive UI:** Sleek glassmorphism effects, a dynamic custom interactive cursor, and an animated preloader layer.
+*   **✉️ Seamless Contact Form:** Integrated contact form powered by a Next.js API route using **Nodemailer** for secure, automated email dispatch.
+*   **📱 Responsive & Modular:** Designed mobile-first using the utility classes of **Tailwind CSS v4** and broken down into isolated, reusable React components.
+
+---
+
+## 🛠️ Tech Stack
+
+| Category | Technology |
+| :--- | :--- |
+| **Framework** | Next.js 16 (App Router), React 19, TypeScript |
+| **Styling** | Tailwind CSS v4, PostCSS |
+| **Animations** | GSAP, Framer Motion, Lenis Smooth Scroll |
+| **Icons** | Lucide React |
+| **Email Service** | Nodemailer |
+
+---
+
+## 📂 Project Structure
+
+```text
+src/
+├── app/                  # Next.js App Router (pages & API routes)
+│   ├── api/contact/      # API route for handling contact form submission
+│   ├── layout.tsx        # Global layout, fonts, metadata, and providers
+│   └── page.tsx          # Main entry page assembling all sections
+├── components/           # Modular React UI components
+│   ├── About.tsx         # About section
+│   ├── Achievements.tsx  # Achievements timeline/cards
+│   ├── Certifications.tsx# Professional credentials
+│   ├── Contact.tsx       # Interactive contact form
+│   ├── CustomCursor.tsx  # Custom follow-along cursor
+│   ├── Education.tsx     # Academic history
+│   ├── Experience.tsx    # Professional career history
+│   ├── Header.tsx        # Responsive site navigation
+│   ├── Hero.tsx          # Interactive intro with visual animations
+│   ├── Preloader.tsx     # Intro screen animation
+│   ├── Projects.tsx      # Showcasing build portfolio
+│   ├── Skills.tsx        # Skill badges and grid
+│   └── SmoothScroll.tsx  # Lenis smooth-scrolling wrapper
+└── globals.css           # Global stylesheet and custom CSS properties
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Getting Started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To run a local instance of the portfolio on your machine:
 
-## Learn More
+### 1. Prerequisites
+Ensure you have [Node.js](https://nodejs.org) installed (v18.x or higher recommended) and `npm` or `yarn`.
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Clone the Repository
+```bash
+git clone https://github.com/anshgoyal05/portfolio.git
+cd portfolio
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Install Dependencies
+```bash
+npm install
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4. Environment Configuration
+Create a `.env.local` file in the root directory by copying the example environment variables:
+```bash
+cp .env.example .env.local
+```
+Open `.env.local` and add your SMTP credentials (e.g., Gmail App Password) to allow the contact form to send emails:
+```env
+SMTP_PASSWORD=your_gmail_app_password_here
+```
 
-## Deploy on Vercel
+### 5. Run the Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 6. Build for Production
+```bash
+npm run build
+npm run start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📝 License
+
+This project is open-source. Feel free to use the code as inspiration or a reference for your own portfolio.
