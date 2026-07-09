@@ -46,6 +46,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -73,6 +74,7 @@ export default function Contact() {
     if (!formData.name || !formData.email || !formData.message) return;
 
     setIsSubmitting(true);
+    setErrorMsg(null);
 
     try {
       const response = await fetch('/api/contact', {
@@ -94,11 +96,19 @@ export default function Contact() {
         setFormData({ name: '', email: '', message: '' });
       } else {
         console.error("Server API error:", data.message);
-        // Fallback: If API fails, open pre-filled mailto
-        window.location.href = `mailto:goyalansh.in@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(formData.name)}&body=Name: ${encodeURIComponent(formData.name)}%0D%0AEmail: ${encodeURIComponent(formData.email)}%0D%0A%0D%0AMessage:%0D%0A${encodeURIComponent(formData.message)}`;
+        
+        // If it is a validation error (400), set the error message and do NOT open mailto client
+        if (response.status === 400) {
+          setErrorMsg(data.message || 'Please enter a valid, active email address.');
+        } else {
+          setErrorMsg(data.message || 'Failed to send message. Opening email client fallback...');
+          // Fallback: If API fails for other reasons, open pre-filled mailto
+          window.location.href = `mailto:goyalansh.in@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(formData.name)}&body=Name: ${encodeURIComponent(formData.name)}%0D%0AEmail: ${encodeURIComponent(formData.email)}%0D%0A%0D%0AMessage:%0D%0A${encodeURIComponent(formData.message)}`;
+        }
       }
     } catch (err) {
       console.error("Network error submitting form:", err);
+      setErrorMsg('Network error. Opening email client fallback...');
       // Fallback: If API fails, open pre-filled mailto
       window.location.href = `mailto:goyalansh.in@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(formData.name)}&body=Name: ${encodeURIComponent(formData.name)}%0D%0AEmail: ${encodeURIComponent(formData.email)}%0D%0A%0D%0AMessage:%0D%0A${encodeURIComponent(formData.message)}`;
     } finally {
@@ -245,6 +255,12 @@ export default function Contact() {
                     placeholder="Tell me about your project..."
                   />
                 </div>
+ 
+                {errorMsg && (
+                  <div className="text-rose-400 text-xs font-semibold bg-rose-500/10 border border-rose-500/20 px-4 py-3 rounded-xl animate-fade-in">
+                    {errorMsg}
+                  </div>
+                )}
 
                 <button
                   type="submit"

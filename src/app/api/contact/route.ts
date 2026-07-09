@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import dns from 'dns';
+import { promisify } from 'util';
+
+const resolveMx = promisify(dns.resolveMx);
+const resolve4 = promisify(dns.resolve4);
 
 // Simple in-memory rate limiter configuration
 interface RateLimitRecord {
@@ -11,6 +16,79 @@ const RATE_LIMIT_MAX_REQUESTS = 3; // Max 3 requests per window
 
 // Helper function to validate email format
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+async function checkDomainExists(email: string): Promise<boolean> {
+  const domain = email.split('@')[1];
+  if (!domain) return false;
+  
+  try {
+    const mxRecords = await resolveMx(domain);
+    if (mxRecords && mxRecords.length > 0) return true;
+  } catch (error) {
+    // Ignore, try resolving A records
+  }
+  
+  try {
+    const aRecords = await resolve4(domain);
+    if (aRecords && aRecords.length > 0) return true;
+  } catch (error) {
+    // Ignore
+  }
+  
+  return false;
+}
+
+async function verifyEmailWithAI(email: string): Promise<{ isValid: boolean; reason?: string }> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    console.warn('GEMINI_API_KEY is not configured. Skipping AI semantic email check.');
+    return { isValid: true };
+  }
+
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              {
+                text: `Analyze the email address "${email}". Verify if it appears to be a legitimate, valid, active-looking personal or professional email, rather than a fake, temporary, spam, disposable (e.g. mailinator, tempmail, yopmail), or completely random/gibberish string (e.g. asdfghjkl@gmail.com, a123b456@xyz.com). Respond ONLY with a raw JSON object matching this schema: { "valid": boolean, "reason": "brief user-facing explanation in 1 sentence why it is valid or invalid" }. Do not add markdown code blocks.`
+              }
+            ]
+          }
+        ],
+        generationConfig: {
+          responseMimeType: 'application/json'
+        }
+      })
+    });
+
+    if (!response.ok) {
+      console.error(`Gemini API error status: ${response.status}`);
+      return { isValid: true };
+    }
+
+    const data = await response.json();
+    const textContent = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!textContent) {
+      return { isValid: true };
+    }
+
+    const parsed = JSON.parse(textContent.trim());
+    return {
+      isValid: parsed.valid,
+      reason: parsed.reason
+    };
+  } catch (err) {
+    console.error('Error during AI email validation:', err);
+    return { isValid: true };
+  }
+}
 
 // Helper function to escape HTML special characters to prevent HTML/XSS injection
 function escapeHtml(text: string): string {
@@ -100,6 +178,24 @@ export async function POST(request: Request) {
     if (!emailRegex.test(trimmedEmail)) {
       return NextResponse.json(
         { success: false, message: 'Please enter a valid email address' },
+        { status: 400 }
+      );
+    }
+
+    // Real-world domain check (DNS MX/A record validation)
+    const domainExists = await checkDomainExists(trimmedEmail);
+    if (!domainExists) {
+      return NextResponse.json(
+        { success: false, message: 'This email domain does not exist in the world.' },
+        { status: 400 }
+      );
+    }
+
+    // AI Semantic Verification
+    const aiCheck = await verifyEmailWithAI(trimmedEmail);
+    if (!aiCheck.isValid) {
+      return NextResponse.json(
+        { success: false, message: aiCheck.reason || 'This email address appears to be invalid or fake.' },
         { status: 400 }
       );
     }

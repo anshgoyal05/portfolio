@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { Calendar, Briefcase, ChevronRight, Award } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Calendar, ChevronRight, ChevronLeft, X, Maximize2 } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -16,6 +16,169 @@ interface ExperienceItem {
   duration: string;
   points: string[];
   tags: string[];
+  images: string[];
+}
+
+function ImageSlider({ images, title }: { images: string[]; title: string }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
+  // Auto-play effect
+  useEffect(() => {
+    if (isHovered || isLightboxOpen) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [images.length, isHovered, isLightboxOpen]);
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  if (!images || images.length === 0) return null;
+
+  return (
+    <div 
+      className="relative w-full aspect-[4/3] sm:aspect-[16/10] rounded-2xl overflow-hidden border border-white/5 bg-neutral-950/85 group/slider"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Slider Images */}
+      <div className="relative w-full h-full bg-neutral-950/90">
+        {images.map((img, idx) => (
+          <div
+            key={idx}
+            className={`absolute inset-0 transition-opacity duration-700 ease-in-out cursor-zoom-in ${
+              idx === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
+            onClick={() => setIsLightboxOpen(true)}
+          >
+            {/* Blurred background image to fill frame */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={img}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover blur-xl opacity-30 scale-110 pointer-events-none"
+            />
+            {/* Main uncropped image centered */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={img}
+              alt={`${title} image ${idx + 1}`}
+              className="relative w-full h-full object-contain z-10 transition-transform duration-700 hover:scale-102"
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Slide Navigation Buttons */}
+      {images.length > 1 && (
+        <>
+          <button
+            onClick={handlePrev}
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-black/50 border border-white/10 text-white opacity-0 group-hover/slider:opacity-100 hover:bg-black/75 transition-all duration-300 backdrop-blur-sm cursor-pointer"
+            aria-label="Previous image"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button
+            onClick={handleNext}
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-black/50 border border-white/10 text-white opacity-0 group-hover/slider:opacity-100 hover:bg-black/75 transition-all duration-300 backdrop-blur-sm cursor-pointer"
+            aria-label="Next image"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </>
+      )}
+
+      {/* Hover Zoom Icon Indicator */}
+      <div className="absolute top-3 right-3 z-20 p-1.5 rounded-lg bg-black/40 border border-white/10 text-neutral-300 opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300 backdrop-blur-sm pointer-events-none">
+        <Maximize2 className="h-3.5 w-3.5" />
+      </div>
+
+      {/* Dot Indicators */}
+      {images.length > 1 && (
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+          {images.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentIndex(idx);
+              }}
+              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                idx === currentIndex ? 'w-4 bg-teal-400' : 'w-1.5 bg-white/30 hover:bg-white/60'
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Lightbox Modal */}
+      {isLightboxOpen && (
+        <div 
+          className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center backdrop-blur-md transition-all duration-300 animate-fade-in"
+          onClick={() => setIsLightboxOpen(false)}
+        >
+          {/* Close Button */}
+          <button
+            onClick={() => setIsLightboxOpen(false)}
+            className="absolute top-6 right-6 p-3 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:scale-105 transition-all duration-300 backdrop-blur-md cursor-pointer"
+            aria-label="Close fullscreen view"
+          >
+            <X className="h-6 w-6" />
+          </button>
+
+          {/* Lightbox Navigation Buttons */}
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={handlePrev}
+                className="absolute left-6 top-1/2 -translate-y-1/2 p-3.5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all duration-300 backdrop-blur-md cursor-pointer"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+              <button
+                onClick={handleNext}
+                className="absolute right-6 top-1/2 -translate-y-1/2 p-3.5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all duration-300 backdrop-blur-md cursor-pointer"
+                aria-label="Next image"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </button>
+            </>
+          )}
+
+          {/* Fullscreen Image Container */}
+          <div 
+            className="relative max-w-[90%] max-h-[85vh] aspect-auto flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={images[currentIndex]}
+              alt={`${title} image fullscreen`}
+              className="max-w-full max-h-[85vh] object-contain rounded-lg border border-white/5 shadow-2xl"
+            />
+          </div>
+
+          {/* Lightbox Index / Title Overlay */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-sm text-neutral-400 font-medium">
+            {currentIndex + 1} / {images.length}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function Experience() {
@@ -31,7 +194,13 @@ export default function Experience() {
         "Serve on the executive leadership team, setting chapter strategy and overseeing technical programming across 12+ events attended by 500+ students.",
         "Coordinate student volunteers and technical teams to deliver hackathons, workshops, and coding competitions."
       ],
-      tags: ["Leadership", "Event Management", "Technical Mentoring", "Public Relations"]
+      tags: ["Leadership", "Event Management", "Technical Mentoring", "Public Relations"],
+      images: [
+        "/images/experience/acm/acm-event-1.jpg",
+        "/images/experience/acm/acm-event-2.jpg",
+        "/images/experience/acm/acm-banner.gif",
+        "/images/experience/acm/acm-team.jpg"
+      ]
     },
     {
       role: "Member",
@@ -41,7 +210,14 @@ export default function Experience() {
       points: [
         "Engage in startup-focused learning, innovation programmes, and entrepreneurial development initiatives, transforming ideas into practical solutions with industry mentorship."
       ],
-      tags: ["Entrepreneurship", "Innovation", "Business Design", "Startup Ecosystems"]
+      tags: ["Entrepreneurship", "Innovation", "Business Design", "Startup Ecosystems"],
+      images: [
+        "/images/experience/enterprise/enterprise-lab-1.jpg",
+        "/images/experience/enterprise/enterprise-banner.gif",
+        "/images/experience/enterprise/enterprise-lab-2.jpg",
+        "/images/experience/enterprise/enterprise-presentation.jpg",
+        "/images/experience/enterprise/enterprise-team.jpg"
+      ]
     }
   ];
 
@@ -162,26 +338,34 @@ export default function Experience() {
                   </div>
                 </div>
 
-                {/* Bullets */}
-                <ul className="space-y-3.5 text-neutral-400 text-sm md:text-base leading-relaxed mb-6">
-                  {exp.points.map((pt, pIdx) => (
-                    <li key={pIdx} className="flex items-start gap-2.5">
-                      <ChevronRight className="h-4.5 w-4.5 text-teal-400 mt-1 flex-shrink-0" />
-                      <span>{pt}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+                  <div className="md:col-span-7 flex flex-col justify-between h-full">
+                    {/* Bullets */}
+                    <ul className="space-y-3.5 text-neutral-400 text-sm md:text-base leading-relaxed mb-6">
+                      {exp.points.map((pt, pIdx) => (
+                        <li key={pIdx} className="flex items-start gap-2.5">
+                          <ChevronRight className="h-4.5 w-4.5 text-teal-400 mt-1 flex-shrink-0" />
+                          <span>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
 
-                {/* Tags pills */}
-                <div className="flex flex-wrap gap-2 pt-2 border-t border-white/5">
-                  {exp.tags.map((tag, tIdx) => (
-                    <span
-                      key={tIdx}
-                      className="text-[9px] font-bold uppercase tracking-widest text-neutral-500 bg-neutral-900 border border-white/5 px-3 py-1 rounded-full group-hover:border-neutral-800 transition-colors"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                    {/* Tags pills */}
+                    <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5 mt-auto">
+                      {exp.tags.map((tag, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className="text-[9px] font-bold uppercase tracking-widest text-neutral-500 bg-neutral-900 border border-white/5 px-3 py-1 rounded-full group-hover:border-neutral-800 transition-colors"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="md:col-span-5 flex flex-col justify-center">
+                    <ImageSlider images={exp.images} title={exp.organization} />
+                  </div>
                 </div>
 
               </div>

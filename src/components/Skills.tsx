@@ -141,23 +141,8 @@ export default function Skills() {
     return () => ctx.revert();
   }, []);
 
-  // Animating circular indicator path offsets
+  // Fade-in list items on change of category
   useEffect(() => {
-    // Reset and trigger SVGs animation on change of category
-    gsap.fromTo('.skill-progress-ring',
-      { strokeDashoffset: 160 },
-      {
-        strokeDashoffset: (i, target) => {
-          const val = parseFloat(target.getAttribute('data-level') || '0');
-          return 160 - (160 * val) / 100;
-        },
-        duration: 1.2,
-        ease: 'power3.out',
-        overwrite: 'auto'
-      }
-    );
-
-    // Fade-in list items
     gsap.fromTo('.skill-item-card',
       { opacity: 0, y: 15 },
       { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: 'power2.out', overwrite: 'auto' }
@@ -251,53 +236,15 @@ export default function Skills() {
               </div>
 
               {/* Skills Cards Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {categories[activeCategory].skills.map((skill, index) => (
                   <div
                     key={index}
-                    className="skill-item-card group flex items-center justify-between p-5 rounded-2xl bg-neutral-900/60 border border-white/5 hover:border-white/10 transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.01)]"
+                    className="skill-item-card group flex items-center justify-center p-4.5 rounded-2xl bg-neutral-900/60 border border-white/5 hover:border-white/10 transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.01)]"
                   >
-                    <div className="flex flex-col">
-                      <h4 className="text-sm font-bold tracking-tight text-white group-hover:text-teal-400 transition-colors duration-300">
-                        {skill.name}
-                      </h4>
-                      <span className="text-[10px] text-neutral-500 uppercase tracking-widest mt-1 block">
-                        Expertise Dial
-                      </span>
-                    </div>
-
-                    {/* Radial Progress Meter (SVG Animated Dial) */}
-                    <div className="relative h-[52px] w-[52px] flex items-center justify-center">
-                      <svg className="w-full h-full transform -rotate-90">
-                        {/* Background Dial Circle */}
-                        <circle
-                          cx="26"
-                          cy="26"
-                          r="23"
-                          fill="transparent"
-                          stroke="rgba(255,255,255,0.03)"
-                          strokeWidth="3.5"
-                        />
-                        {/* Interactive Foreground Dash */}
-                        <circle
-                          cx="26"
-                          cy="26"
-                          r="23"
-                          fill="transparent"
-                          stroke="currentColor"
-                          strokeWidth="3.5"
-                          className="skill-progress-ring text-teal-400 transition-all duration-300"
-                          strokeDasharray="160"
-                          strokeDashoffset="160"
-                          data-level={skill.level}
-                        />
-                      </svg>
-                      {/* Percent overlay */}
-                      <span className="absolute text-[10px] font-mono font-bold text-neutral-400 group-hover:text-white transition-colors duration-300">
-                        {skill.level}%
-                      </span>
-                    </div>
-
+                    <h4 className="text-sm font-bold tracking-tight text-white group-hover:text-teal-400 transition-colors duration-300 text-center">
+                      {skill.name}
+                    </h4>
                   </div>
                 ))}
               </div>

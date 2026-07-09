@@ -48,7 +48,7 @@ export default function Projects() {
         "Implemented analytics dashboards, workflow tracking, and role-based access controls to improve civic transparency."
       ],
       tech: ["Next.js", "FastAPI", "PostgreSQL", "Docker", "Python", "Machine Learning", "TypeScript"],
-      github: "https://github.com/anshgoyal05/CivicSync",
+      github: "https://github.com/anshgoyal05/CivicSync-AI-Driven-Urban-Grievance-Prioritization-Accountability.git",
       gradient: "from-teal-500/10 via-cyan-500/5 to-transparent"
     },
     {
