@@ -19,10 +19,10 @@ export default function CustomCursor() {
     if (!cursor || !follower) return;
 
     // Quick setters for high performance smooth translations
-    const xCursor = gsap.quickTo(cursor, "x", { duration: 0.08, ease: "power3.out" });
-    const yCursor = gsap.quickTo(cursor, "y", { duration: 0.08, ease: "power3.out" });
-    const xFollower = gsap.quickTo(follower, "x", { duration: 0.35, ease: "power3.out" });
-    const yFollower = gsap.quickTo(follower, "y", { duration: 0.35, ease: "power3.out" });
+    const xCursor = gsap.quickTo(cursor, "x", { duration: 0.08, ease: "power3.out", force3D: true });
+    const yCursor = gsap.quickTo(cursor, "y", { duration: 0.08, ease: "power3.out", force3D: true });
+    const xFollower = gsap.quickTo(follower, "x", { duration: 0.35, ease: "power3.out", force3D: true });
+    const yFollower = gsap.quickTo(follower, "y", { duration: 0.35, ease: "power3.out", force3D: true });
 
     let isHovering = false;
 
@@ -129,15 +129,15 @@ export default function CustomCursor() {
         ref={cursorRef}
         className={`pointer-events-none fixed left-0 top-0 z-[9999] h-2 w-2 rounded-full bg-white transition-opacity duration-300 ${
           isVisible ? 'opacity-100' : 'opacity-0'
-        } hidden md:block`}
-        style={{ transform: 'translate3d(-100px, -100px, 0)' }}
+        } hidden md:block will-change-transform`}
+        style={{ transform: 'translate3d(-100px, -100px, 0)', willChange: 'transform' }}
       />
       <div
         ref={followerRef}
         className={`pointer-events-none fixed left-0 top-0 z-[9998] h-10 w-10 rounded-full border border-white/30 transition-opacity duration-300 ${
           isVisible ? 'opacity-100' : 'opacity-0'
-        } hidden md:block`}
-        style={{ transform: 'translate3d(-100px, -100px, 0)' }}
+        } hidden md:block will-change-transform`}
+        style={{ transform: 'translate3d(-100px, -100px, 0)', willChange: 'transform' }}
       />
     </>
   );

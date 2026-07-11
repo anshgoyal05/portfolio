@@ -61,6 +61,7 @@ export default function Hero() {
         yPercent: 12,
         scale: 1.08,
         ease: 'none',
+        force3D: true,
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top top',

@@ -303,10 +303,7 @@ export default function Contact() {
             <span>Back to Top</span>
             <ArrowUp className="h-3.5 w-3.5 text-neutral-500 group-hover:text-teal-400 group-hover:-translate-y-0.5 transition-all" />
           </button>
-          
-          <div className="flex items-center gap-1.5">
-            <span>Built with Next.js & GSAP</span>
-          </div>
+
         </div>
 
       </div>

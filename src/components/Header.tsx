@@ -38,11 +38,12 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed left-0 right-0 top-0 z-[1000] transition-all duration-500 ${
+      className={`fixed left-0 right-0 top-0 z-[1000] transition-all duration-500 will-change-transform ${
         scrolled
           ? 'bg-black/60 py-3.5 backdrop-blur-xl border-b border-white/5 shadow-2xl'
           : 'bg-transparent py-6'
       }`}
+      style={{ transform: 'translate3d(0, 0, 0)', willChange: 'transform' }}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-12">
         {/* Logo */}

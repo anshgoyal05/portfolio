@@ -14,7 +14,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       options={{
         duration: 1.4,
         lerp: 0.08,
-        syncTouch: true,
+        syncTouch: false,
       }}
     >
       {children}
