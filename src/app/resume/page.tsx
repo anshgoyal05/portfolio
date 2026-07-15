@@ -106,7 +106,7 @@ export default function ResumePage() {
             <div>
               <div className="flex justify-between items-baseline font-sans text-xs">
                 <span className="font-bold text-black">CivicSync - AI-Driven Urban Grievance Prioritization & Accountability</span>
-                <a href="https://github.com/anshgoyal05/CivicSync-AI-Driven-Urban-Grievance-Prioritization-Accountability.git" target="_blank" rel="noopener noreferrer" className="text-neutral-600 underline font-mono text-[10px]">github.com/anshgoyal05/CivicSync-AI-Driven-Urban-Grievance-Prioritization-Accountability</a>
+                <a href="https://github.com/anshgoyal05/CivicSync.git" target="_blank" rel="noopener noreferrer" className="text-neutral-600 underline font-mono text-[10px]">github.com/anshgoyal05/CivicSync</a>
               </div>
               <p className="text-[10px] font-sans text-neutral-600 font-semibold uppercase tracking-wider">Next.js · FastAPI · PostgreSQL · Docker · Python · Machine Learning · TypeScript</p>
               <ul className="mt-1 text-xs text-neutral-800 space-y-1">
