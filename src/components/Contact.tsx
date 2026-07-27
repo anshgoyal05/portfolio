@@ -43,7 +43,7 @@ if (typeof window !== 'undefined') {
 
 export default function Contact() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', website: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -86,14 +86,15 @@ export default function Contact() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          message: formData.message
+          message: formData.message,
+          website: formData.website,
         })
       });
 
       const data = await response.json();
       if (response.ok && data.success) {
         setIsSubmitted(true);
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', email: '', message: '', website: '' });
       } else {
         console.error("Server API error:", data.message);
         
@@ -203,13 +204,23 @@ export default function Contact() {
 
           {/* Right Contact Form */}
           <div className="lg:col-span-7 contact-reveal-el">
-            <div className="p-8 rounded-3xl bg-neutral-900/30 border border-white/5 backdrop-blur-xl relative overflow-hidden">
+            <div className="p-8 rounded-3xl bg-neutral-900/30 border border-white/5 glass-panel relative overflow-hidden">
               
               <h3 className="text-xl font-bold tracking-tight text-white mb-6 border-b border-white/5 pb-3">
                 Send a Message
               </h3>
 
               <form onSubmit={handleSubmit} className="space-y-5">
+                <input
+                  type="text"
+                  name="website"
+                  value={formData.website}
+                  onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute left-[-9999px] h-0 w-0 opacity-0 pointer-events-none"
+                />
                 
                 <div className="space-y-1.5">
                   <label htmlFor="form-name" className="text-[10px] uppercase font-bold tracking-widest text-neutral-500">

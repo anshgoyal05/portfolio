@@ -11,9 +11,12 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
     background-color: #000000;
     color: #ffffff;
+  }
+
+  html[data-effects='full'] {
+    scroll-behavior: smooth;
   }
   
   body {
@@ -61,4 +64,28 @@
 ::selection {
   background: rgba(45, 212, 191, 0.15);
   color: #2dd4bf;
+}
+
+/* Safari / reduced-motion: disable expensive compositing effects */
+[data-effects='lite'] .noise-overlay {
+  display: none;
+}
+
+[data-effects='lite'] .glass-panel {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  background-color: rgba(23, 23, 23, 0.92) !important;
+}
+
+[data-effects='lite'] .bg-blur-orb {
+  filter: none !important;
+  opacity: 0.35 !important;
+}
+
+[data-effects='lite'] .slider-blur-bg {
+  display: none !important;
+}
+
+[data-effects='lite'] .will-change-transform {
+  will-change: auto !important;
 }

@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className="relative flex min-h-screen flex-col bg-black text-white selection:bg-teal-500/10 selection:text-teal-400">
       {/* Dynamic Background Noise Layer */}
-      <div className="pointer-events-none fixed inset-0 z-50 bg-[radial-gradient(transparent_50%,_rgba(0,0,0,0.1))] mix-blend-overlay opacity-30" />
+      <div className="noise-overlay pointer-events-none fixed inset-0 z-50 bg-[radial-gradient(transparent_50%,_rgba(0,0,0,0.1))] mix-blend-overlay opacity-30" aria-hidden="true" />
       
       {/* Global Navigation Header */}
       <Header />

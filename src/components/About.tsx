@@ -120,8 +120,8 @@ export default function About() {
             {/* Resume download and Contact CTAs */}
             <div className="about-reveal-el pt-6 flex flex-wrap gap-4">
               <a
-                href="/resume.pdf"
-                download
+                href="/Ansh_Goyal_Resume.pdf"
+                download="Ansh_Goyal_Resume.pdf"
                 className="group relative flex items-center justify-center p-[1.5px] rounded-full bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 transition-all duration-300 hover:shadow-[0_0_25px_rgba(45,212,191,0.35)]"
                 data-cursor="magnetic"
               >

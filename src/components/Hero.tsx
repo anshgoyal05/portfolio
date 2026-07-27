@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ArrowDown } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { prefersReducedEffects } from '@/lib/browser';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -55,20 +56,22 @@ export default function Hero() {
 
     document.addEventListener('preloader-complete', handleIntro);
     
-    // Parallax effect on scroll
+    // Parallax effect on scroll (disabled on Safari — scrub + transform is costly)
     const ctx = gsap.context(() => {
-      gsap.to('.hero-parallax-img', {
-        yPercent: 12,
-        scale: 1.08,
-        ease: 'none',
-        force3D: true,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true
-        }
-      });
+      if (!prefersReducedEffects()) {
+        gsap.to('.hero-parallax-img', {
+          yPercent: 12,
+          scale: 1.08,
+          ease: 'none',
+          force3D: true,
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        });
+      }
     }, containerRef);
 
     return () => {
@@ -91,7 +94,7 @@ export default function Hero() {
     >
       {/* Background glow layers */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-950/15 via-black to-black opacity-80 z-0 pointer-events-none" />
-      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-purple-900/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-purple-900/5 rounded-full blur-[120px] bg-blur-orb pointer-events-none" />
 
       <div className="z-10 flex flex-col flex-1 justify-center max-w-7xl mx-auto w-full">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 items-center">

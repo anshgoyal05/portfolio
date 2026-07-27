@@ -66,7 +66,8 @@ function ImageSlider({ images, title }: { images: string[]; title: string }) {
             <img
               src={img}
               alt=""
-              className="absolute inset-0 w-full h-full object-cover blur-xl opacity-30 scale-110 pointer-events-none"
+              aria-hidden="true"
+              className="slider-blur-bg absolute inset-0 w-full h-full object-cover blur-xl opacity-30 scale-110 pointer-events-none"
             />
             {/* Main uncropped image centered */}
             {/* eslint-disable-next-line @next/next/no-img-element */}

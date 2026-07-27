@@ -14,6 +14,16 @@ const rateLimitMap = new Map<string, RateLimitRecord>();
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 const RATE_LIMIT_MAX_REQUESTS = 3; // Max 3 requests per window
 
+const ALLOWED_ORIGINS = new Set([
+  'https://goyalansh.in',
+  'https://www.goyalansh.in',
+  'https://anshgoyal.live',
+  'https://www.anshgoyal.live',
+  ...(process.env.NODE_ENV === 'development'
+    ? ['http://localhost:3000', 'http://127.0.0.1:3000']
+    : []),
+]);
+
 // Helper function to validate email format
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -100,8 +110,44 @@ function escapeHtml(text: string): string {
     .replace(/'/g, '&#039;');
 }
 
+function sanitizeEmailHeader(value: string): string {
+  return value.replace(/[\r\n\x00-\x1f\x7f]/g, '').trim();
+}
+
+function isAllowedOrigin(request: Request): boolean {
+  const origin = request.headers.get('origin');
+  if (origin) {
+    return ALLOWED_ORIGINS.has(origin);
+  }
+
+  const referer = request.headers.get('referer');
+  if (!referer) {
+    return process.env.NODE_ENV === 'development';
+  }
+
+  try {
+    return ALLOWED_ORIGINS.has(new URL(referer).origin);
+  } catch {
+    return false;
+  }
+}
+
 export async function POST(request: Request) {
   try {
+    if (!isAllowedOrigin(request)) {
+      return NextResponse.json(
+        { success: false, message: 'Forbidden request origin' },
+        { status: 403 }
+      );
+    }
+
+    const contentType = request.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      return NextResponse.json(
+        { success: false, message: 'Invalid content type' },
+        { status: 415 }
+      );
+    }
     // 1. IP-based Rate Limiting
     const forwarded = request.headers.get('x-forwarded-for');
     const ip = forwarded ? forwarded.split(',')[0].trim() : (request.headers.get('x-real-ip') || '127.0.0.1');
@@ -135,9 +181,12 @@ export async function POST(request: Request) {
       );
     }
 
-    const { name, email, message } = body;
+    const { name, email, message, website } = body;
 
-    // 3. Input Validation
+    // Honeypot: bots often fill hidden fields
+    if (typeof website === 'string' && website.trim().length > 0) {
+      return NextResponse.json({ success: true, message: 'Message sent successfully' });
+    }
     if (
       typeof name !== 'string' || 
       typeof email !== 'string' || 
@@ -231,11 +280,14 @@ export async function POST(request: Request) {
       }
     });
 
+    const safeReplyTo = sanitizeEmailHeader(trimmedEmail);
+    const safeSubjectName = sanitizeEmailHeader(trimmedName);
+
     const mailOptions = {
       from: `"Ansh Goyal Portfolio" <noreply.anshgoyal@gmail.com>`,
-      to: 'goyalansh.in@gmail.com', // Your personal email address
-      replyTo: trimmedEmail, // Sets reply-to to the visitor's email
-      subject: `New Portfolio Message from ${trimmedName}`,
+      to: 'goyalansh.in@gmail.com',
+      replyTo: safeReplyTo,
+      subject: `New Portfolio Message from ${safeSubjectName}`,
       text: `You have received a new contact form message from your portfolio website.\n\nSender Details:\nName: ${trimmedName}\nEmail: ${trimmedEmail}\n\nMessage:\n${trimmedMessage}`,
       html: `
         <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; padding: 30px; background-color: #0b0b0f; color: #ffffff; border: 1px solid #1f1f2e; border-radius: 20px;">

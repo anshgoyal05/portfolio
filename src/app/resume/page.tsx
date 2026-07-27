@@ -1,6 +1,6 @@
 'use client';
 
-import { Printer, ArrowLeft } from 'lucide-react';
+import { Printer, ArrowLeft, Download } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ResumePage() {
@@ -14,19 +14,28 @@ export default function ResumePage() {
     <div className="min-h-screen bg-neutral-900 py-10 px-4 sm:px-6 print:bg-white print:py-0 print:px-0">
       
       {/* Floating control bar - hidden when printing */}
-      <div className="mx-auto max-w-4xl mb-6 flex justify-between items-center bg-neutral-800/80 border border-white/5 backdrop-blur-md px-6 py-4 rounded-2xl print:hidden">
+      <div className="mx-auto max-w-4xl mb-6 flex justify-between items-center bg-neutral-800/80 border border-white/5 glass-panel px-6 py-4 rounded-2xl print:hidden">
         <Link 
           href="/"
           className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-white transition-colors"
         >
           <ArrowLeft className="h-4 w-4" /> Back to Portfolio
         </Link>
-        <button
-          onClick={handlePrint}
-          className="flex items-center gap-2 rounded-xl bg-teal-400 hover:bg-teal-500 text-black px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(45,212,191,0.2)]"
-        >
-          <Printer className="h-4 w-4" /> Print / Save as PDF
-        </button>
+        <div className="flex items-center gap-3">
+          <a
+            href="/Ansh_Goyal_Resume.pdf"
+            download="Ansh_Goyal_Resume.pdf"
+            className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all"
+          >
+            <Download className="h-4 w-4" /> Download PDF
+          </a>
+          <button
+            onClick={handlePrint}
+            className="flex items-center gap-2 rounded-xl bg-teal-400 hover:bg-teal-500 text-black px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(45,212,191,0.2)]"
+          >
+            <Printer className="h-4 w-4" /> Print / Save as PDF
+          </button>
+        </div>
       </div>
 
       {/* A4 Resume Sheet Container */}

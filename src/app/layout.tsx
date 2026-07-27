@@ -3,6 +3,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
 import Preloader from "@/components/Preloader";
+import BrowserOptimizations from "@/components/BrowserOptimizations";
 
 export const metadata: Metadata = {
   title: "Ansh Goyal | AI & Full-Stack Developer",
@@ -25,8 +26,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full scroll-smooth select-none">
+    <html lang="en" className="h-full select-none">
       <body className="bg-black text-white antialiased overflow-x-hidden min-h-full">
+        <BrowserOptimizations />
         <SmoothScroll>
           <Preloader />
           <CustomCursor />

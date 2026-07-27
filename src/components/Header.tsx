@@ -8,14 +8,19 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 40);
+        ticking = false;
+      });
     };
-    window.addEventListener('scroll', handleScroll);
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -38,12 +43,11 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed left-0 right-0 top-0 z-[1000] transition-all duration-500 will-change-transform ${
+      className={`fixed left-0 right-0 top-0 z-[1000] transition-all duration-500 ${
         scrolled
-          ? 'bg-black/60 py-3.5 backdrop-blur-xl border-b border-white/5 shadow-2xl'
+          ? 'glass-panel bg-black/80 py-3.5 border-b border-white/5 shadow-2xl'
           : 'bg-transparent py-6'
       }`}
-      style={{ transform: 'translate3d(0, 0, 0)', willChange: 'transform' }}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-12">
         {/* Logo */}
@@ -70,9 +74,8 @@ export default function Header() {
             </a>
           ))}
           <a
-            href="/resume"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/Ansh_Goyal_Resume.pdf"
+            download="Ansh_Goyal_Resume.pdf"
             className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-[10px] font-bold uppercase tracking-widest text-white transition-all duration-300 hover:bg-white hover:text-black hover:border-white"
             data-cursor="magnetic"
           >
@@ -92,7 +95,7 @@ export default function Header() {
 
       {/* Mobile menu panel */}
       {isOpen && (
-        <div className="fixed inset-0 top-[57px] z-[999] flex flex-col items-center justify-center bg-black/95 backdrop-blur-3xl md:hidden">
+        <div className="fixed inset-0 top-[57px] z-[999] flex flex-col items-center justify-center bg-black/98 glass-panel md:hidden">
           <nav className="flex flex-col items-center gap-10 text-center animate-fade-in">
             {navLinks.map((link) => (
               <a
@@ -105,12 +108,11 @@ export default function Header() {
               </a>
             ))}
             <a
-              href="/resume"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/Ansh_Goyal_Resume.pdf"
+              download="Ansh_Goyal_Resume.pdf"
               className="mt-6 flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-3.5 text-xs font-black uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all"
             >
-              View Resume <ArrowDownToLine className="h-4 w-4" />
+              Download Resume <ArrowDownToLine className="h-4 w-4" />
             </a>
           </nav>
         </div>
