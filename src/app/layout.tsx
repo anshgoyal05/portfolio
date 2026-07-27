@@ -4,6 +4,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
 import Preloader from "@/components/Preloader";
 import BrowserOptimizations from "@/components/BrowserOptimizations";
+import { ResumeModalProvider } from "@/components/ResumeModal";
 
 export const metadata: Metadata = {
   title: "Ansh Goyal | AI & Full-Stack Developer",
@@ -30,11 +31,14 @@ export default function RootLayout({
       <body className="bg-black text-white antialiased overflow-x-hidden min-h-full">
         <BrowserOptimizations />
         <SmoothScroll>
-          <Preloader />
-          <CustomCursor />
-          {children}
+          <ResumeModalProvider>
+            <Preloader />
+            <CustomCursor />
+            {children}
+          </ResumeModalProvider>
         </SmoothScroll>
       </body>
     </html>
   );
 }
+

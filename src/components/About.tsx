@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { Download, GraduationCap, MapPin, Award, Heart } from 'lucide-react';
+import { Download, GraduationCap, MapPin, Award, Heart, Eye } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useResumeModal } from './ResumeModal';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -11,6 +12,7 @@ if (typeof window !== 'undefined') {
 
 export default function About() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const { openResumeModal } = useResumeModal();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -117,19 +119,18 @@ export default function About() {
               Beyond engineering, I am deeply involved in student community leadership. As Vice Chair of our ACM Student Chapter, I oversee technical programming and guide student groups to run coding events and hackathons.
             </p>
 
-            {/* Resume download and Contact CTAs */}
+            {/* Resume preview modal CTA */}
             <div className="about-reveal-el pt-6 flex flex-wrap gap-4">
-              <a
-                href="/Ansh_Goyal_Resume.pdf"
-                download="Ansh_Goyal_Resume.pdf"
-                className="group relative flex items-center justify-center p-[1.5px] rounded-full bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 transition-all duration-300 hover:shadow-[0_0_25px_rgba(45,212,191,0.35)]"
+              <button
+                onClick={openResumeModal}
+                className="group relative flex items-center justify-center p-[1.5px] rounded-full bg-gradient-to-r from-teal-400 via-blue-500 to-purple-600 transition-all duration-300 hover:shadow-[0_0_25px_rgba(45,212,191,0.35)] cursor-pointer"
                 data-cursor="magnetic"
               >
                 <div className="flex items-center gap-2.5 rounded-full bg-black px-8 py-4 transition-all duration-300 group-hover:bg-transparent text-xs font-bold uppercase tracking-wider text-white">
-                  <span>Download Full CV</span>
-                  <Download className="h-4 w-4 text-teal-400 group-hover:text-white group-hover:translate-y-[2px] transition-all duration-300" />
+                  <span>View Resume / CV</span>
+                  <Eye className="h-4 w-4 text-teal-400 group-hover:text-white group-hover:scale-110 transition-all duration-300" />
                 </div>
-              </a>
+              </button>
               <a
                 href="#contact"
                 className="flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-8 py-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/10 transition-colors"
@@ -139,6 +140,7 @@ export default function About() {
               </a>
             </div>
           </div>
+
 
           {/* Right Cards */}
           <div className="lg:col-span-5 about-cards-container grid grid-cols-1 sm:grid-cols-2 gap-4">

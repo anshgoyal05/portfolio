@@ -89,3 +89,67 @@
 [data-effects='lite'] .will-change-transform {
   will-change: auto !important;
 }
+
+/* Print Specific Rules - Print ONLY the Resume Document on 1 Page */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0.25in 0.35in;
+  }
+
+  html, body {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide main site layout, header, footer, background overlays and control bars */
+  header,
+  main,
+  footer,
+  .noise-overlay,
+  .preloader-container,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Reset fixed modal overlay wrappers during print */
+  [role="dialog"],
+  div[data-lenis-prevent="true"] {
+    position: static !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Position resume print sheet for clean 1-page print output */
+  .resume-print-sheet {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-after: avoid !important;
+    break-inside: avoid !important;
+  }
+}
+
+
+

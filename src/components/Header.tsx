@@ -1,11 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, ArrowDownToLine } from 'lucide-react';
+import { Menu, X, FileText } from 'lucide-react';
+import { useResumeModal } from './ResumeModal';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { openResumeModal } = useResumeModal();
 
   useEffect(() => {
     let ticking = false;
@@ -73,14 +75,13 @@ export default function Header() {
               {link.name}
             </a>
           ))}
-          <a
-            href="/Ansh_Goyal_Resume.pdf"
-            download="Ansh_Goyal_Resume.pdf"
-            className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-[10px] font-bold uppercase tracking-widest text-white transition-all duration-300 hover:bg-white hover:text-black hover:border-white"
+          <button
+            onClick={openResumeModal}
+            className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-[10px] font-bold uppercase tracking-widest text-white transition-all duration-300 hover:bg-white hover:text-black hover:border-white cursor-pointer"
             data-cursor="magnetic"
           >
-            Resume <ArrowDownToLine className="h-3 w-3" />
-          </a>
+            Resume <FileText className="h-3 w-3" />
+          </button>
         </nav>
 
         {/* Mobile menu trigger */}
@@ -107,16 +108,19 @@ export default function Header() {
                 {link.name}
               </a>
             ))}
-            <a
-              href="/Ansh_Goyal_Resume.pdf"
-              download="Ansh_Goyal_Resume.pdf"
-              className="mt-6 flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-3.5 text-xs font-black uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all"
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                openResumeModal();
+              }}
+              className="mt-6 flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-3.5 text-xs font-black uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all cursor-pointer"
             >
-              Download Resume <ArrowDownToLine className="h-4 w-4" />
-            </a>
+              Preview Resume <FileText className="h-4 w-4" />
+            </button>
           </nav>
         </div>
       )}
     </header>
   );
 }
+

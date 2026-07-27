@@ -1,13 +1,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import gsap from 'gsap';
 
 export default function Preloader() {
+  const pathname = usePathname();
   const [progress, setProgress] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    if (pathname === '/resume') return;
+
     let current = 0;
     const interval = setInterval(() => {
       current += Math.floor(Math.random() * 8) + 2;
@@ -40,9 +44,9 @@ export default function Preloader() {
     }, 40);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [pathname]);
 
-  if (isLoaded) return null;
+  if (pathname === '/resume' || isLoaded) return null;
 
   return (
     <div className="preloader-container fixed inset-0 z-[99999] flex flex-col items-center justify-between bg-black p-8 font-sans text-white select-none">
