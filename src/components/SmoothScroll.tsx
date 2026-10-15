@@ -42,7 +42,10 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   const [enableLenis, setEnableLenis] = useState(false);
 
   useEffect(() => {
-    setEnableLenis(!prefersReducedEffects());
+    const timer = setTimeout(() => {
+      setEnableLenis(!prefersReducedEffects());
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   if (!enableLenis) {

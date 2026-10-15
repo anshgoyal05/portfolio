@@ -80,7 +80,7 @@ export function ResumeModalProvider({ children }: { children: React.ReactNode })
       {isOpen && (
         <div
           data-lenis-prevent="true"
-          className="fixed inset-0 z-[10000] bg-neutral-950/95 overflow-y-auto overscroll-contain py-6 px-4 sm:px-6 transition-all duration-300 backdrop-blur-xl print:bg-transparent print:p-0 print:m-0 print:static print:z-auto print:overflow-visible"
+          className="fixed inset-0 z-[10000] bg-neutral-900/60 overflow-y-auto overscroll-contain py-6 px-4 sm:px-6 transition-all duration-300 backdrop-blur-md print:bg-transparent print:p-0 print:m-0 print:static print:z-auto print:overflow-visible"
           role="dialog"
           aria-modal="true"
           aria-label="Resume Preview Modal"
@@ -88,31 +88,31 @@ export function ResumeModalProvider({ children }: { children: React.ReactNode })
           {/* Main scrollable container wrapper */}
           <div className="mx-auto max-w-4xl min-h-full flex flex-col justify-start pb-12 print:p-0 print:m-0 print:w-full print:max-w-full" data-lenis-prevent="true">
             
-            {/* Sticky Floating Control Bar - Matches Screenshot (Hidden on print) */}
-            <div className="sticky top-4 z-50 mb-4 flex flex-wrap justify-between items-center gap-4 bg-neutral-900/90 border border-white/10 glass-panel px-6 py-3 rounded-2xl print:hidden shadow-2xl backdrop-blur-xl">
+            {/* Sticky Floating Control Bar (Hidden on print) */}
+            <div className="sticky top-4 z-50 mb-4 flex flex-wrap justify-between items-center gap-4 bg-white/95 border border-[#EAEAEA] px-6 py-3 rounded-2xl print:hidden shadow-xl backdrop-blur-xl text-[#171717]">
               <button 
                 onClick={closeResumeModal}
-                className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-300 hover:text-white transition-colors cursor-pointer"
+                className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#666666] hover:text-[#171717] transition-colors cursor-pointer"
                 data-cursor="pointer"
               >
                 <ArrowLeft className="h-4 w-4" /> Back to Portfolio
               </button>
 
               <div className="flex items-center gap-3">
-                {/* Download PDF button - Downloads the actual updated PDF file directly */}
+                {/* Download PDF button */}
                 <a
                   href="/Ansh_Goyal_Resume.pdf"
                   download="Ansh_Goyal_Resume.pdf"
-                  className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/10 hover:bg-white/20 text-white px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
+                  className="flex items-center gap-2 rounded-xl border border-[#EAEAEA] bg-[#FAF7F0] hover:bg-white text-[#171717] hover:border-[#D4A017] px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all shadow-sm cursor-pointer"
                   data-cursor="magnetic"
                 >
-                  <Download className="h-4 w-4 text-teal-400" /> Download PDF
+                  <Download className="h-4 w-4 text-[#F97316]" /> Download PDF
                 </a>
 
-                {/* Print / Save as PDF button - Prints the actual PDF document directly */}
+                {/* Print / Save as PDF button */}
                 <button
                   onClick={handlePrint}
-                  className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-teal-400 to-teal-500 hover:from-teal-300 hover:to-teal-400 text-black px-5 py-2 text-xs font-black uppercase tracking-wider transition-all shadow-[0_0_25px_rgba(45,212,191,0.3)] cursor-pointer"
+                  className="flex items-center gap-2 rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-white px-5 py-2 text-xs font-black uppercase tracking-wider transition-all shadow-[0_4px_16px_rgba(249,115,22,0.25)] hover:shadow-[0_6px_20px_rgba(249,115,22,0.35)] cursor-pointer"
                   data-cursor="magnetic"
                 >
                   <Printer className="h-4 w-4" /> Print / Save as PDF
@@ -120,7 +120,7 @@ export function ResumeModalProvider({ children }: { children: React.ReactNode })
 
                 <button
                   onClick={closeResumeModal}
-                  className="p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-neutral-400 hover:text-white transition-colors cursor-pointer"
+                  className="p-2 rounded-xl border border-[#EAEAEA] bg-[#FAF7F0] hover:bg-white text-[#666666] hover:text-[#171717] transition-colors cursor-pointer"
                   aria-label="Close Preview"
                   data-cursor="pointer"
                 >
@@ -130,7 +130,7 @@ export function ResumeModalProvider({ children }: { children: React.ReactNode })
             </div>
 
             {/* A4 Resume Sheet Container */}
-            <div className="resume-print-sheet w-full bg-white text-black p-5 sm:p-7 md:p-8 shadow-2xl rounded-2xl print:shadow-none print:rounded-none print:p-0 font-sans leading-tight text-xs selection:bg-teal-200">
+            <div className="resume-print-sheet w-full bg-white text-black p-5 sm:p-7 md:p-8 shadow-2xl rounded-2xl print:shadow-none print:rounded-none print:p-0 font-sans leading-tight text-xs selection:bg-orange-100 selection:text-orange-950">
               
               {/* Header */}
               <div className="text-center space-y-0.5 border-b border-black pb-1.5">

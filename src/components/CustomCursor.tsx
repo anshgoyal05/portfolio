@@ -13,9 +13,12 @@ export default function CustomCursor() {
   const pendingMoveRef = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
-    const isTouchDevice =
-      'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    setEnabled(!prefersReducedEffects() && !isTouchDevice);
+    const timer = setTimeout(() => {
+      const isTouchDevice =
+        'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      setEnabled(!prefersReducedEffects() && !isTouchDevice);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -60,13 +63,13 @@ export default function CustomCursor() {
       gsap.to(follower, {
         scale: 1,
         backgroundColor: 'transparent',
-        borderColor: 'rgba(255, 255, 255, 0.3)',
+        borderColor: 'rgba(23, 23, 23, 0.25)',
         duration: 0.3,
         overwrite: 'auto',
       });
       gsap.to(cursor, {
         scale: 1,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#171717',
         duration: 0.3,
         overwrite: 'auto',
       });
@@ -82,22 +85,22 @@ export default function CustomCursor() {
       if (type === 'pointer') {
         gsap.to(follower, {
           scale: 1.8,
-          backgroundColor: 'rgba(255, 255, 255, 0.08)',
-          borderColor: 'var(--color-teal-glow, #0df)',
+          backgroundColor: 'rgba(249, 115, 22, 0.08)',
+          borderColor: '#F97316',
           duration: 0.3,
           overwrite: 'auto',
         });
         gsap.to(cursor, {
           scale: 0.6,
-          backgroundColor: 'var(--color-teal-glow, #0df)',
+          backgroundColor: '#F97316',
           duration: 0.3,
           overwrite: 'auto',
         });
       } else if (type === 'magnetic') {
         gsap.to(follower, {
-          scale: 2.4,
-          borderColor: 'var(--color-purple-glow, #8a2be2)',
-          backgroundColor: 'rgba(138, 43, 226, 0.12)',
+          scale: 2.2,
+          borderColor: '#D4A017',
+          backgroundColor: 'rgba(212, 160, 23, 0.12)',
           duration: 0.3,
           overwrite: 'auto',
         });
@@ -145,12 +148,12 @@ export default function CustomCursor() {
     <>
       <div
         ref={cursorRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] h-2 w-2 rounded-full bg-white opacity-0 hidden md:block"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] h-2 w-2 rounded-full bg-[#171717] opacity-0 hidden md:block"
         style={{ transform: 'translate3d(-100px, -100px, 0)' }}
       />
       <div
         ref={followerRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9998] h-10 w-10 rounded-full border border-white/30 opacity-0 hidden md:block"
+        className="pointer-events-none fixed left-0 top-0 z-[9998] h-10 w-10 rounded-full border border-[#171717]/25 opacity-0 hidden md:block"
         style={{ transform: 'translate3d(-100px, -100px, 0)' }}
       />
     </>

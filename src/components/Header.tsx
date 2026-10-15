@@ -47,7 +47,7 @@ export default function Header() {
     <header
       className={`fixed left-0 right-0 top-0 z-[1000] transition-all duration-500 ${
         scrolled
-          ? 'glass-panel bg-black/80 py-3.5 border-b border-white/5 shadow-2xl'
+          ? 'glass-panel bg-[#FFFDF7]/90 py-3.5 border-b border-[#EAEAEA] shadow-[0_4px_20px_rgba(0,0,0,0.03)]'
           : 'bg-transparent py-6'
       }`}
     >
@@ -56,10 +56,10 @@ export default function Header() {
         <a
           href="#"
           onClick={(e) => handleLinkClick(e, '#')}
-          className="group text-xl font-black tracking-tighter text-white font-display"
+          className="group text-xl font-black tracking-tight text-[#171717] font-display"
           data-cursor="magnetic"
         >
-          ANSH<span className="text-teal-400 group-hover:text-purple-400 transition-colors duration-300">.</span>G
+          ANSH<span className="text-[#F97316] group-hover:text-[#D4A017] transition-colors duration-300">.</span>G
         </a>
 
         {/* Desktop Navigation */}
@@ -69,7 +69,7 @@ export default function Header() {
               key={link.name}
               href={link.href}
               onClick={(e) => handleLinkClick(e, link.href)}
-              className="relative text-xs font-semibold uppercase tracking-widest text-neutral-400 transition-colors duration-300 hover:text-white"
+              className="relative text-xs font-semibold tracking-wider text-[#666666] transition-colors duration-300 hover:text-[#171717]"
               data-cursor="pointer"
             >
               {link.name}
@@ -77,17 +77,17 @@ export default function Header() {
           ))}
           <button
             onClick={openResumeModal}
-            className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-[10px] font-bold uppercase tracking-widest text-white transition-all duration-300 hover:bg-white hover:text-black hover:border-white cursor-pointer"
+            className="flex items-center gap-2 rounded-full border border-[#EAEAEA] bg-white px-5 py-2 text-[11px] font-semibold text-[#171717] transition-all duration-300 hover:border-[#D4A017] hover:text-[#F97316] hover:shadow-[0_2px_12px_rgba(212,160,23,0.12)] cursor-pointer"
             data-cursor="magnetic"
           >
-            Resume <FileText className="h-3 w-3" />
+            Resume <FileText className="h-3.5 w-3.5 text-[#F97316]" />
           </button>
         </nav>
 
         {/* Mobile menu trigger */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="text-white hover:text-teal-400 transition-colors duration-300 md:hidden"
+          className="text-[#171717] hover:text-[#F97316] transition-colors duration-300 md:hidden p-1 rounded-lg"
           aria-label="Toggle navigation menu"
         >
           {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -96,14 +96,14 @@ export default function Header() {
 
       {/* Mobile menu panel */}
       {isOpen && (
-        <div className="fixed inset-0 top-[57px] z-[999] flex flex-col items-center justify-center bg-black/98 glass-panel md:hidden">
-          <nav className="flex flex-col items-center gap-10 text-center animate-fade-in">
+        <div className="fixed inset-0 top-[57px] z-[999] flex flex-col items-center justify-center bg-[#FFFDF7]/98 backdrop-blur-2xl border-b border-[#EAEAEA] md:hidden">
+          <nav className="flex flex-col items-center gap-8 text-center animate-fade-in py-12">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link.href)}
-                className="text-3xl font-black tracking-tight text-neutral-300 hover:text-white transition-colors uppercase font-display"
+                className="text-2xl font-bold tracking-tight text-[#171717] hover:text-[#F97316] transition-colors font-display"
               >
                 {link.name}
               </a>
@@ -113,9 +113,9 @@ export default function Header() {
                 setIsOpen(false);
                 openResumeModal();
               }}
-              className="mt-6 flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-3.5 text-xs font-black uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all cursor-pointer"
+              className="mt-4 flex items-center gap-2 rounded-full border border-[#EAEAEA] bg-white px-8 py-3 text-xs font-bold uppercase tracking-wider text-[#171717] shadow-sm hover:border-[#D4A017] hover:text-[#F97316] transition-all cursor-pointer"
             >
-              Preview Resume <FileText className="h-4 w-4" />
+              Preview Resume <FileText className="h-4 w-4 text-[#F97316]" />
             </button>
           </nav>
         </div>

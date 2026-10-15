@@ -11,13 +11,13 @@ export default function ResumePage() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-900 py-10 px-4 sm:px-6 print:bg-white print:py-0 print:px-0">
+    <div className="min-h-screen bg-[#FFFDF7] py-10 px-4 sm:px-6 print:bg-white print:py-0 print:px-0">
       
       {/* Floating control bar - hidden when printing */}
-      <div className="mx-auto max-w-4xl mb-6 flex justify-between items-center bg-neutral-800/80 border border-white/5 glass-panel px-6 py-4 rounded-2xl print:hidden">
+      <div className="mx-auto max-w-4xl mb-6 flex justify-between items-center bg-white/95 border border-[#EAEAEA] px-6 py-4 rounded-2xl print:hidden shadow-md">
         <Link 
           href="/"
-          className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-white transition-colors"
+          className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#666666] hover:text-[#171717] transition-colors"
         >
           <ArrowLeft className="h-4 w-4" /> Back to Portfolio
         </Link>
@@ -25,13 +25,13 @@ export default function ResumePage() {
           <a
             href="/Ansh_Goyal_Resume.pdf"
             download="Ansh_Goyal_Resume.pdf"
-            className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all"
+            className="flex items-center gap-2 rounded-xl border border-[#EAEAEA] bg-[#FAF7F0] hover:bg-white text-[#171717] hover:border-[#D4A017] px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all shadow-sm"
           >
-            <Download className="h-4 w-4" /> Download PDF
+            <Download className="h-4 w-4 text-[#F97316]" /> Download PDF
           </a>
           <button
             onClick={handlePrint}
-            className="flex items-center gap-2 rounded-xl bg-teal-400 hover:bg-teal-500 text-black px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(45,212,191,0.2)] cursor-pointer"
+            className="flex items-center gap-2 rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all shadow-[0_4px_16px_rgba(249,115,22,0.25)] hover:shadow-[0_6px_20px_rgba(249,115,22,0.35)] cursor-pointer"
           >
             <Printer className="h-4 w-4" /> Print / Save as PDF
           </button>
@@ -39,7 +39,7 @@ export default function ResumePage() {
       </div>
 
       {/* A4 Resume Sheet Container - Fits on EXACTLY 1 Page */}
-      <div className="resume-print-sheet mx-auto max-w-4xl bg-white text-black p-5 sm:p-7 md:p-8 shadow-2xl rounded-2xl print:shadow-none print:rounded-none print:p-0 font-sans leading-tight text-xs">
+      <div className="resume-print-sheet mx-auto max-w-4xl bg-white text-black p-5 sm:p-7 md:p-8 shadow-xl rounded-2xl print:shadow-none print:rounded-none print:p-0 font-sans leading-tight text-xs selection:bg-orange-100 selection:text-orange-950">
         
         {/* Header */}
         <div className="text-center space-y-0.5 border-b border-black pb-1.5">

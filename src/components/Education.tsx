@@ -84,22 +84,22 @@ export default function Education() {
     <section
       id="education"
       ref={containerRef}
-      className="relative bg-black py-24 px-6 md:px-12 flex flex-col justify-center overflow-hidden"
+      className="relative bg-[#FFFDF7] py-24 px-6 md:px-12 flex flex-col justify-center overflow-hidden"
     >
-      {/* Soft background glow */}
-      <div className="absolute right-0 top-1/2 w-[350px] h-[350px] bg-teal-950/5 rounded-full blur-[120px] pointer-events-none" />
+      {/* Soft warm ambient lighting */}
+      <div className="absolute right-0 top-1/2 w-[350px] h-[350px] bg-amber-100/25 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="mx-auto w-full max-w-5xl z-10">
         
         {/* Header */}
         <div className="edu-reveal-el mb-16">
           <div className="flex items-center gap-4">
-            <h2 className="text-4xl font-extrabold tracking-tighter md:text-5xl lg:text-6xl font-display text-white uppercase">
+            <h2 className="text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl font-display text-[#171717] uppercase">
               Education
             </h2>
-            <div className="h-[2px] flex-1 bg-gradient-to-r from-teal-400/30 to-transparent" />
+            <div className="h-[2px] flex-1 bg-gradient-to-r from-[#F97316]/30 to-transparent" />
           </div>
-          <span className="mt-2 text-xs font-bold tracking-[0.3em] text-neutral-500 uppercase block">
+          <span className="mt-2 text-xs font-bold tracking-[0.25em] text-[#F97316] uppercase block">
             Academic Background & Core Studies
           </span>
         </div>
@@ -109,26 +109,26 @@ export default function Education() {
           {educationList.map((edu, idx) => (
             <div
               key={idx}
-              className="edu-card group p-6 sm:p-8 rounded-3xl bg-neutral-900/40 border border-white/5 backdrop-blur-md hover:border-white/10 hover:bg-neutral-900/60 transition-all duration-500"
+              className="edu-card group p-6 sm:p-8 rounded-3xl bg-white border border-[#EAEAEA] shadow-[0_2px_15px_rgba(0,0,0,0.03)] hover:border-[#D4A017]/40 hover:shadow-[0_8px_30px_rgba(245,158,11,0.08)] transition-all duration-500"
             >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 border-b border-white/5 pb-4 mb-4">
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 border-b border-[#EAEAEA] pb-4 mb-4">
                 <div className="space-y-1">
-                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white group-hover:text-teal-400 transition-colors duration-300">
+                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-[#171717] group-hover:text-[#F97316] transition-colors duration-300">
                     {edu.degree}
                   </h3>
-                  <div className="flex items-center gap-2 text-sm text-neutral-400">
-                    <GraduationCap className="h-4 w-4 text-neutral-500" />
+                  <div className="flex items-center gap-2 text-sm text-[#666666]">
+                    <GraduationCap className="h-4 w-4 text-[#F97316]" />
                     <span>{edu.institution}</span>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
-                  <div className="flex items-center gap-1.5 rounded-full border border-white/5 bg-white/5 px-4 py-1 text-xs text-neutral-300">
-                    <Calendar className="h-3.5 w-3.5 text-purple-400" />
+                <div className="flex flex-wrap gap-2 items-center">
+                  <div className="flex items-center gap-1.5 rounded-full border border-[#EAEAEA] bg-[#FAF7F0] px-4 py-1 text-xs text-[#171717]">
+                    <Calendar className="h-3.5 w-3.5 text-[#F97316]" />
                     <span className="font-mono font-medium">{edu.duration}</span>
                   </div>
-                  <div className="flex items-center gap-1.5 rounded-full border border-teal-500/20 bg-teal-500/5 px-4 py-1 text-xs text-teal-400 font-bold">
-                    <Award className="h-3.5 w-3.5" />
+                  <div className="flex items-center gap-1.5 rounded-full border border-[#D4A017]/30 bg-[#FFFDF7] px-4 py-1 text-xs text-[#D4A017] font-bold shadow-sm">
+                    <Award className="h-3.5 w-3.5 text-[#D4A017]" />
                     <span>{edu.grade}</span>
                   </div>
                 </div>
@@ -136,8 +136,8 @@ export default function Education() {
 
               <div className="space-y-2.5">
                 {edu.details.map((detail, dIdx) => (
-                  <p key={dIdx} className="text-neutral-400 text-sm md:text-base leading-relaxed flex items-start gap-2.5">
-                    <BookOpen className="h-4 w-4 text-teal-400 mt-1 flex-shrink-0" />
+                  <p key={dIdx} className="text-[#666666] text-sm md:text-base leading-relaxed flex items-start gap-2.5">
+                    <BookOpen className="h-4 w-4 text-[#F97316] mt-1 flex-shrink-0" />
                     <span>{detail}</span>
                   </p>
                 ))}

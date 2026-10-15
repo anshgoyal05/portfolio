@@ -49,29 +49,29 @@ export default function Preloader() {
   if (pathname === '/resume' || isLoaded) return null;
 
   return (
-    <div className="preloader-container fixed inset-0 z-[99999] flex flex-col items-center justify-between bg-black p-8 font-sans text-white select-none">
+    <div className="preloader-container fixed inset-0 z-[99999] flex flex-col items-center justify-between bg-[#FFFDF7] p-8 font-sans text-[#171717] select-none">
       {/* Top Header */}
-      <div className="preloader-content flex w-full justify-between text-xs tracking-[0.25em] text-neutral-500 uppercase">
+      <div className="preloader-content flex w-full justify-between text-xs tracking-[0.25em] text-[#666666] uppercase">
         <div>Ansh Goyal</div>
         <div>Creative Portfolio // 2026</div>
       </div>
       
       {/* Center Branding */}
       <div className="preloader-content flex flex-col items-center justify-center text-center">
-        <h1 className="text-6xl font-black tracking-tighter md:text-9xl font-display text-white">
-          A<span className="text-teal-400">.</span>G
+        <h1 className="text-6xl font-black tracking-tighter md:text-9xl font-display text-[#171717]">
+          A<span className="text-[#F97316]">.</span>G
         </h1>
-        <span className="mt-4 text-[10px] tracking-[0.4em] text-neutral-400 uppercase">
+        <span className="mt-4 text-[10px] tracking-[0.4em] text-[#666666] uppercase font-bold">
           AI & Full-Stack Developer
         </span>
       </div>
 
       {/* Bottom Info & Progress Counter */}
       <div className="preloader-content flex w-full items-end justify-between">
-        <div className="hidden max-w-xs text-left text-[9px] uppercase tracking-widest text-neutral-500 leading-relaxed md:block">
-          Specializing in MERN, Next.js, and AI-powered grievance platforms. Chitkara University BECSE.
+        <div className="hidden max-w-xs text-left text-[9px] uppercase tracking-widest text-[#666666] leading-relaxed md:block">
+          Specializing in Distributed Systems, Next.js, and AI-powered platforms. Chitkara University BECSE.
         </div>
-        <div className="font-mono text-7xl font-thin tracking-tighter md:text-9xl text-neutral-200">
+        <div className="font-mono text-7xl font-thin tracking-tighter md:text-9xl text-[#171717]/85">
           {progress.toString().padStart(3, '0')}%
         </div>
       </div>

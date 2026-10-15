@@ -11,9 +11,9 @@ import Contact from "@/components/Contact";
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-screen flex-col bg-black text-white selection:bg-teal-500/10 selection:text-teal-400">
-      {/* Dynamic Background Noise Layer */}
-      <div className="noise-overlay pointer-events-none fixed inset-0 z-50 bg-[radial-gradient(transparent_50%,_rgba(0,0,0,0.1))] mix-blend-overlay opacity-30" aria-hidden="true" />
+    <div className="relative flex min-h-screen flex-col bg-[#FFFDF7] text-[#171717] selection:bg-orange-500/15 selection:text-orange-700">
+      {/* Subtle Warm Ambient Layer */}
+      <div className="noise-overlay pointer-events-none fixed inset-0 z-50 bg-[radial-gradient(transparent_50%,_rgba(245,158,11,0.02))] mix-blend-multiply opacity-40" aria-hidden="true" />
       
       {/* Global Navigation Header */}
       <Header />

@@ -34,14 +34,14 @@ async function checkDomainExists(email: string): Promise<boolean> {
   try {
     const mxRecords = await resolveMx(domain);
     if (mxRecords && mxRecords.length > 0) return true;
-  } catch (error) {
+  } catch {
     // Ignore, try resolving A records
   }
   
   try {
     const aRecords = await resolve4(domain);
     if (aRecords && aRecords.length > 0) return true;
-  } catch (error) {
+  } catch {
     // Ignore
   }
   
@@ -174,7 +174,7 @@ export async function POST(request: Request) {
     let body;
     try {
       body = await request.json();
-    } catch (e) {
+    } catch {
       return NextResponse.json(
         { success: false, message: 'Invalid JSON payload' },
         { status: 400 }
@@ -320,7 +320,7 @@ export async function POST(request: Request) {
     await transporter.sendMail(mailOptions);
 
     return NextResponse.json({ success: true, message: 'Message sent successfully' });
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Log the detailed error internally
     console.error('Error forwarding email:', error);
     

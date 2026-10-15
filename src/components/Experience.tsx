@@ -47,12 +47,12 @@ function ImageSlider({ images, title }: { images: string[]; title: string }) {
 
   return (
     <div 
-      className="relative w-full aspect-[4/3] sm:aspect-[16/10] rounded-2xl overflow-hidden border border-white/5 bg-neutral-950/85 group/slider"
+      className="relative w-full aspect-[4/3] sm:aspect-[16/10] rounded-2xl overflow-hidden border border-[#EAEAEA] bg-[#FAF7F0] group/slider shadow-sm"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Slider Images */}
-      <div className="relative w-full h-full bg-neutral-950/90">
+      <div className="relative w-full h-full bg-[#FAF7F0]">
         {images.map((img, idx) => (
           <div
             key={idx}
@@ -67,7 +67,7 @@ function ImageSlider({ images, title }: { images: string[]; title: string }) {
               src={img}
               alt=""
               aria-hidden="true"
-              className="slider-blur-bg absolute inset-0 w-full h-full object-cover blur-xl opacity-30 scale-110 pointer-events-none"
+              className="slider-blur-bg absolute inset-0 w-full h-full object-cover blur-xl opacity-20 scale-110 pointer-events-none"
             />
             {/* Main uncropped image centered */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -85,14 +85,14 @@ function ImageSlider({ images, title }: { images: string[]; title: string }) {
         <>
           <button
             onClick={handlePrev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-black/50 border border-white/10 text-white opacity-0 group-hover/slider:opacity-100 hover:bg-black/75 transition-all duration-300 backdrop-blur-sm cursor-pointer"
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white/90 border border-[#EAEAEA] text-[#171717] opacity-0 group-hover/slider:opacity-100 hover:bg-white hover:text-[#F97316] transition-all duration-300 shadow-md backdrop-blur-sm cursor-pointer"
             aria-label="Previous image"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
           <button
             onClick={handleNext}
-            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-black/50 border border-white/10 text-white opacity-0 group-hover/slider:opacity-100 hover:bg-black/75 transition-all duration-300 backdrop-blur-sm cursor-pointer"
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white/90 border border-[#EAEAEA] text-[#171717] opacity-0 group-hover/slider:opacity-100 hover:bg-white hover:text-[#F97316] transition-all duration-300 shadow-md backdrop-blur-sm cursor-pointer"
             aria-label="Next image"
           >
             <ChevronRight className="h-4 w-4" />
@@ -101,13 +101,13 @@ function ImageSlider({ images, title }: { images: string[]; title: string }) {
       )}
 
       {/* Hover Zoom Icon Indicator */}
-      <div className="absolute top-3 right-3 z-20 p-1.5 rounded-lg bg-black/40 border border-white/10 text-neutral-300 opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300 backdrop-blur-sm pointer-events-none">
+      <div className="absolute top-3 right-3 z-20 p-1.5 rounded-lg bg-white/80 border border-[#EAEAEA] text-[#666666] opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300 backdrop-blur-sm pointer-events-none">
         <Maximize2 className="h-3.5 w-3.5" />
       </div>
 
       {/* Dot Indicators */}
       {images.length > 1 && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-1.5">
           {images.map((_, idx) => (
             <button
               key={idx}
@@ -116,7 +116,7 @@ function ImageSlider({ images, title }: { images: string[]; title: string }) {
                 setCurrentIndex(idx);
               }}
               className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                idx === currentIndex ? 'w-4 bg-teal-400' : 'w-1.5 bg-white/30 hover:bg-white/60'
+                idx === currentIndex ? 'w-4 bg-[#F97316]' : 'w-1.5 bg-black/20 hover:bg-black/40'
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             />
@@ -127,13 +127,13 @@ function ImageSlider({ images, title }: { images: string[]; title: string }) {
       {/* Lightbox Modal */}
       {isLightboxOpen && (
         <div 
-          className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center backdrop-blur-md transition-all duration-300 animate-fade-in"
+          className="fixed inset-0 z-[9999] bg-black/85 flex items-center justify-center backdrop-blur-md transition-all duration-300 animate-fade-in"
           onClick={() => setIsLightboxOpen(false)}
         >
           {/* Close Button */}
           <button
             onClick={() => setIsLightboxOpen(false)}
-            className="absolute top-6 right-6 p-3 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:scale-105 transition-all duration-300 backdrop-blur-md cursor-pointer"
+            className="absolute top-6 right-6 p-3 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 hover:scale-105 transition-all duration-300 backdrop-blur-md cursor-pointer"
             aria-label="Close fullscreen view"
           >
             <X className="h-6 w-6" />
@@ -144,14 +144,14 @@ function ImageSlider({ images, title }: { images: string[]; title: string }) {
             <>
               <button
                 onClick={handlePrev}
-                className="absolute left-6 top-1/2 -translate-y-1/2 p-3.5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all duration-300 backdrop-blur-md cursor-pointer"
+                className="absolute left-6 top-1/2 -translate-y-1/2 p-3.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-all duration-300 backdrop-blur-md cursor-pointer"
                 aria-label="Previous image"
               >
                 <ChevronLeft className="h-6 w-6" />
               </button>
               <button
                 onClick={handleNext}
-                className="absolute right-6 top-1/2 -translate-y-1/2 p-3.5 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all duration-300 backdrop-blur-md cursor-pointer"
+                className="absolute right-6 top-1/2 -translate-y-1/2 p-3.5 rounded-full bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-all duration-300 backdrop-blur-md cursor-pointer"
                 aria-label="Next image"
               >
                 <ChevronRight className="h-6 w-6" />
@@ -168,12 +168,12 @@ function ImageSlider({ images, title }: { images: string[]; title: string }) {
             <img
               src={images[currentIndex]}
               alt={`${title} image fullscreen`}
-              className="max-w-full max-h-[85vh] object-contain rounded-lg border border-white/5 shadow-2xl"
+              className="max-w-full max-h-[85vh] object-contain rounded-lg border border-white/10 shadow-2xl"
             />
           </div>
 
           {/* Lightbox Index / Title Overlay */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-sm text-neutral-400 font-medium">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-sm text-neutral-300 font-medium">
             {currentIndex + 1} / {images.length}
           </div>
         </div>
@@ -193,7 +193,7 @@ export default function Experience() {
       duration: "Jul 2026 – Present",
       points: [
         "Serve on the executive leadership team, setting chapter strategy and overseeing technical programming across 12+ events attended by 500+ students.",
-        "Coordinate student volunteers and technical teams to deliver hackathons, workshops, and coding competitions."
+        "Coordinate student volunteers and technical teams to deliver hackathons, hands-on workshops, and coding competitions."
       ],
       tags: ["Leadership", "Event Management", "Technical Mentoring", "Public Relations"],
       images: [
@@ -258,7 +258,7 @@ export default function Experience() {
 
       // Slide in content cards
       gsap.fromTo('.exp-timeline-card',
-        { x: 50, opacity: 0 },
+        { x: 40, opacity: 0 },
         {
           x: 0,
           opacity: 1,
@@ -281,59 +281,59 @@ export default function Experience() {
     <section
       id="experience"
       ref={containerRef}
-      className="relative min-h-screen bg-black py-24 px-6 md:px-12 flex flex-col justify-center overflow-hidden"
+      className="relative min-h-screen bg-[#FFFDF7] py-24 px-6 md:px-12 flex flex-col justify-center overflow-hidden"
     >
       {/* Background radial lights */}
-      <div className="absolute right-10 top-1/4 w-[350px] h-[350px] bg-teal-950/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute right-10 top-1/4 w-[350px] h-[350px] bg-amber-100/30 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="mx-auto w-full max-w-5xl z-10">
         
         {/* Header */}
         <div className="exp-reveal-el mb-20">
           <div className="flex items-center gap-4">
-            <h2 className="text-4xl font-extrabold tracking-tighter md:text-5xl lg:text-6xl font-display text-white uppercase">
+            <h2 className="text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl font-display text-[#171717] uppercase">
               Experience
             </h2>
-            <div className="h-[2px] flex-1 bg-gradient-to-r from-teal-400/30 to-transparent" />
+            <div className="h-[2px] flex-1 bg-gradient-to-r from-[#F97316]/30 to-transparent" />
           </div>
-          <span className="mt-2 text-xs font-bold tracking-[0.3em] text-neutral-500 uppercase block">
+          <span className="mt-2 text-xs font-bold tracking-[0.25em] text-[#F97316] uppercase block">
             Leadership Roles & Incubation History
           </span>
         </div>
 
         {/* Timeline container */}
-        <div className="relative exp-timeline-line pl-8 sm:pl-16 border-l border-white/10 ml-4 sm:ml-8 space-y-12">
+        <div className="relative exp-timeline-line pl-8 sm:pl-16 border-l border-[#EAEAEA] ml-4 sm:ml-8 space-y-12">
           {experiences.map((exp, idx) => (
             <div key={idx} className="relative">
               
               {/* Timeline marker */}
-              <div className="exp-timeline-node absolute -left-[41px] sm:-left-[73px] top-1 h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-neutral-900 border-2 border-white/15 flex items-center justify-center transition-all duration-500 group-hover:border-teal-400">
-                <div className="h-2 w-2 sm:h-3 sm:w-3 rounded-full bg-teal-400 shadow-[0_0_8px_#0df]" />
+              <div className="exp-timeline-node absolute -left-[41px] sm:-left-[73px] top-1 h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-white border-2 border-[#D4A017] flex items-center justify-center shadow-sm transition-all duration-500">
+                <div className="h-2 w-2 sm:h-3 sm:w-3 rounded-full bg-[#F97316] shadow-[0_0_8px_#F97316]" />
               </div>
 
               {/* Card Container */}
-              <div className="exp-timeline-card group p-6 sm:p-8 rounded-3xl bg-neutral-900/40 border border-white/5 backdrop-blur-md hover:border-white/10 hover:bg-neutral-900/60 hover:shadow-[0_0_30px_rgba(13,255,255,0.01)] transition-all duration-500">
+              <div className="exp-timeline-card group p-6 sm:p-8 rounded-3xl bg-white border border-[#EAEAEA] shadow-[0_2px_15px_rgba(0,0,0,0.03)] hover:border-[#D4A017]/40 hover:shadow-[0_8px_30px_rgba(245,158,11,0.08)] transition-all duration-500">
                 
                 {/* Meta details */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-white/5 pb-4 mb-5">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#EAEAEA] pb-4 mb-5">
                   <div>
-                    <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white group-hover:text-teal-400 transition-colors duration-300">
+                    <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-[#171717] group-hover:text-[#F97316] transition-colors duration-300">
                       {exp.role}
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs font-semibold text-neutral-400">
+                      <span className="text-xs font-semibold text-[#666666]">
                         {exp.organization}
                       </span>
-                      <span className="text-[10px] text-neutral-600">•</span>
-                      <span className="text-[10px] uppercase font-bold text-neutral-500 tracking-wider">
+                      <span className="text-[10px] text-[#EAEAEA]">•</span>
+                      <span className="text-[10px] uppercase font-bold text-[#666666] tracking-wider">
                         {exp.location}
                       </span>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 rounded-full border border-white/5 bg-white/5 px-4 py-1.5 w-fit">
-                    <Calendar className="h-3.5 w-3.5 text-purple-400" />
-                    <span className="text-[10px] font-mono font-semibold tracking-wider text-neutral-300">
+                  <div className="flex items-center gap-2 rounded-full border border-[#EAEAEA] bg-[#FAF7F0] px-4 py-1.5 w-fit">
+                    <Calendar className="h-3.5 w-3.5 text-[#F97316]" />
+                    <span className="text-[10px] font-mono font-semibold tracking-wider text-[#171717]">
                       {exp.duration}
                     </span>
                   </div>
@@ -342,21 +342,21 @@ export default function Experience() {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
                   <div className="md:col-span-7 flex flex-col justify-between h-full">
                     {/* Bullets */}
-                    <ul className="space-y-3.5 text-neutral-400 text-sm md:text-base leading-relaxed mb-6">
+                    <ul className="space-y-3.5 text-[#666666] text-sm md:text-base leading-relaxed mb-6">
                       {exp.points.map((pt, pIdx) => (
                         <li key={pIdx} className="flex items-start gap-2.5">
-                          <ChevronRight className="h-4.5 w-4.5 text-teal-400 mt-1 flex-shrink-0" />
+                          <ChevronRight className="h-4.5 w-4.5 text-[#F97316] mt-0.5 flex-shrink-0" />
                           <span>{pt}</span>
                         </li>
                       ))}
                     </ul>
 
                     {/* Tags pills */}
-                    <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5 mt-auto">
+                    <div className="flex flex-wrap gap-2 pt-4 border-t border-[#EAEAEA] mt-auto">
                       {exp.tags.map((tag, tIdx) => (
                         <span
                           key={tIdx}
-                          className="text-[9px] font-bold uppercase tracking-widest text-neutral-500 bg-neutral-900 border border-white/5 px-3 py-1 rounded-full group-hover:border-neutral-800 transition-colors"
+                          className="text-[9px] font-bold uppercase tracking-widest text-[#666666] bg-[#FAF7F0] border border-[#EAEAEA] px-3 py-1 rounded-full group-hover:border-[#D4A017]/30 transition-colors"
                         >
                           {tag}
                         </span>

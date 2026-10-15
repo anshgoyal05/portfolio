@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Ansh Goyal" }],
   openGraph: {
     title: "Ansh Goyal | AI & Full-Stack Developer",
-    description: "Creative developer portfolio of Ansh Goyal. Specializing in Next.js, MERN stack, and AI-powered grience systems.",
+    description: "Creative developer portfolio of Ansh Goyal. Specializing in Next.js, MERN stack, distributed systems, and AI-powered platforms.",
     url: "https://goyalansh.in",
     siteName: "Ansh Goyal Portfolio",
     type: "website",
@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full select-none">
-      <body className="bg-black text-white antialiased overflow-x-hidden min-h-full">
+      <body className="bg-[#FFFDF7] text-[#171717] antialiased overflow-x-hidden min-h-full selection:bg-orange-500/15 selection:text-orange-700">
         <BrowserOptimizations />
         <SmoothScroll>
           <ResumeModalProvider>

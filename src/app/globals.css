@@ -2,17 +2,28 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: 'Outfit', sans-serif;
-  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   
-  --color-teal-glow: #2dd4bf;
-  --color-purple-glow: #a855f7;
+  --color-warm-ivory: #FFFDF7;
+  --color-warm-surface: #FAF7F0;
+  --color-border-light: #EAEAEA;
+  --color-festive-orange: #F97316;
+  --color-saffron: #F59E0B;
+  --color-elegant-gold: #D4A017;
+  --color-deep-maroon: #7F1D1D;
+  --color-charcoal-primary: #171717;
+  --color-neutral-secondary: #666666;
+  
+  /* Retain subtle glowing compatibility aliases mapped to warm accents */
+  --color-teal-glow: #F59E0B;
+  --color-purple-glow: #D4A017;
 }
 
 @layer base {
   html {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #FFFDF7;
+    color: #171717;
   }
 
   html[data-effects='full'] {
@@ -20,8 +31,8 @@
   }
   
   body {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #FFFDF7;
+    color: #171717;
     font-family: var(--font-sans);
     overflow-x: hidden;
   }
@@ -33,16 +44,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: #FFFDF7;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1a1a1a;
+  background: #EAEAEA;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2dd4bf;
+  background: #F97316;
 }
 
 /* Custom animations & selections */
@@ -62,8 +73,15 @@
 }
 
 ::selection {
-  background: rgba(45, 212, 191, 0.15);
-  color: #2dd4bf;
+  background: rgba(249, 115, 22, 0.18);
+  color: #C2410C;
+}
+
+.glass-panel {
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 253, 247, 0.85);
+  border: 1px solid rgba(234, 234, 234, 0.9);
 }
 
 /* Safari / reduced-motion: disable expensive compositing effects */
@@ -74,12 +92,12 @@
 [data-effects='lite'] .glass-panel {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
-  background-color: rgba(23, 23, 23, 0.92) !important;
+  background-color: #FFFFFF !important;
 }
 
 [data-effects='lite'] .bg-blur-orb {
   filter: none !important;
-  opacity: 0.35 !important;
+  opacity: 0.25 !important;
 }
 
 [data-effects='lite'] .slider-blur-bg {
